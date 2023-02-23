@@ -1,0 +1,4 @@
+G=' grep'
+L=' less'
+grep='grep --color'
+h=history
