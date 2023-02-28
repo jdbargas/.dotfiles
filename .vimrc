@@ -27,6 +27,9 @@ let mapleader = ","
 " Use Vim settings not Vi
 set nocompatible
 
+" Turn on for correct colors in terminal
+set termguicolors
+
 " Turn on syntax highlighting
 syntax enable
 let c_comment_strings=1 " highlight strings inside C comments
@@ -58,6 +61,8 @@ set relativenumber
 " Highlight cursor line
 set cursorline
 
+" Highlight 81st column to try and keep from goign to wide in a screen
+set colorcolumn=81
 " Tab and indent settings
 set autoindent
 set tabstop=2 " number of spaces a tab in the file counts for
@@ -124,7 +129,7 @@ call plug#end()
 """"""""""""""""""""
 
 " set colorscheme
-" set background=dark
+set background=dark
 colorscheme molokai
 
 " override some highlight definitions
