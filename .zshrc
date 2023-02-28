@@ -1,0 +1,5 @@
+# .zshrc file
+#
+# Jordan Bargas
+#
+#
