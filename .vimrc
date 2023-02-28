@@ -92,6 +92,9 @@ set scrolloff=5
 " Don't increment in octal notation
 set nrformats-=octal
 
+" Show statusline
+set laststatus=2
+
 " Enable file type detection
 filetype plugin indent on
 
