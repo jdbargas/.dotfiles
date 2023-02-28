@@ -1,0 +1,5 @@
+" .vimrc file
+"
+" Jordan Bargas
+"
+"
