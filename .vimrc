@@ -18,7 +18,7 @@
 """"""""""""""""""""
 
 " Set leader key
-let leaderkey = ","
+let mapleader = ","
 
 """"""""""""""""""""
 """ GENERAL
@@ -121,9 +121,11 @@ call plug#end()
 """"""""""""""""""""
 
 " set colorscheme
-set background=dark
+" set background=dark
 colorscheme molokai
 
+" override some highlight definitions
+hi TabLineSel guibg=#808080 guifg=#FFFFFF gui=bold
 
 """""""""""
 """ MAP
