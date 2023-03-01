@@ -7,10 +7,10 @@
 " Sections:
 "     -> BASIC INFO
 "     -> LEADER
-"     -> PLUGINS
-"     -> COLOR
 "     -> GENERAL
+"     -> PLUGINS
 "     -> MAP
+"     -> COLOR
 "     -> STATUSLINE
 "     -> MISC
 
@@ -131,22 +131,6 @@ Plug 'tomasr/molokai'
 
 call plug#end()
 
-""""""""""""""""""""
-""" COLOR
-""""""""""""""""""""
-
-" set colorscheme
-set background=dark
-colorscheme molokai
-
-" override some highlight definitions
-hi TabLineSel guibg=#808080 guifg=#FFFFFF gui=bold
-
-" highlights for statusline
-hi NormalModeSL         guibg=lightgreen  guifg=#444444   cterm=bold
-hi InsertReplaceModeSL  guibg=red         guifg=#eeeeee   cterm=bold
-hi CommandModeSL        guibg=yellow      guifg=#444444   cterm=bold
-
 """""""""""
 """ MAP
 """""""""""
@@ -162,27 +146,50 @@ nnoremap o o<Esc>
 noremap <leader><leader> :nohlsearch<cr>
 
 """"""""""""""""""""
+""" COLOR
+""""""""""""""""""""
+
+" set colorscheme
+set background=dark
+colorscheme molokai
+
+" override some highlight definitions
+hi TabLineSel guibg=#808080 guifg=#FFFFFF gui=bold
+
+" highlights for statusline
+hi NormalModeSL         guibg=lightgreen  guifg=#444444   cterm=bold
+hi InsertReplaceModeSL  guibg=red         guifg=#eeeeee   cterm=bold
+hi CommandModeSL        guibg=yellow      guifg=#444444   cterm=bold
+hi ModifiedFileSL       guibg=red         guifg=yellow    cterm=bold
+hi FiletypeSL           guibg=#455354     guifg=#66D9EF   cterm=bold
+
+""""""""""""""""""""
 """ STATUSLINE
 """"""""""""""""""""
 
-" NOTE: highlight overrides in COLOR section above
+" NOTE: highlights defined in COLOR section above
 " 
 " Show statusline
 set laststatus=2
 
 " component for active window
 function! StatuslineActive()
-  let l:filename = '%f'
-  let l:mod = '%m'
+  let l:filename = '» %t «'
+  let l:mod = '%#ModifiedFileSL#%m%*'
   " `w:` is variable to current window
   " `l:` is variable to function. For more info :help E121
   let w:mode = StatuslineMode()
-  return w:mode.'%* '.l:filename.l:mod
+  let l:path = '%f'
+  let l:lc = '%4l,%3c'
+  let l:type = '%#FiletypeSL#%12y%*'
+  let l:sep = '%='
+  let l:sp = ' '
+  return w:mode.l:sp.l:filename.l:sp.l:sep.l:mod.l:sp.l:path.l:sp.l:lc.l:sp.l:type
 endfunction
 
 " component for inactive window
 function! StatuslineInactive()
-  " the component goes here
+  return '» %t «'
 endfunction
 
 " load statusline using `autocmd` event with this function
@@ -218,7 +225,7 @@ function! StatuslineMode() abort
   let l:modelist = toupper(get(l:currentmode, l:modecurrent, 'VB'))
   let l:current_status = l:modelist
 
-  " check mode type and assign color and reset color after
+  " check mode type, assign color, reset color
   if l:current_status ==# ' NORMAL '
     let l:mode_color = '%#NormalModeSL#' 
   elseif l:current_status ==# ' INSERT ' || l:current_status == ' REPLACE '
@@ -228,7 +235,6 @@ function! StatuslineMode() abort
   else
     let l:mode_color = '%*'
   endif
-
   return l:mode_color.l:current_status.'%*'
 endfunction
 
