@@ -37,6 +37,12 @@ let c_comment_strings=1 " highlight strings inside C comments
 " Disable mouse
 set mouse=
 
+" Disable arrow keys
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
 " Turn off beeping and flashing
 set visualbell
 set t_vb=
