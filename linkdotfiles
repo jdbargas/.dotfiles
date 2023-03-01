@@ -1,12 +1,10 @@
 #!/bin/sh
 
-# symbolic link dotfiles ASSUMING dotfiles reside at ~/.dotfiles
-
 # create backups before linking
 cp -L ~/.zshrc ~/.zshrc.bak
 cp -L ~/.vimrc ~/.vimrc.bak
 
-# link dotfiles
+# force link dotfiles
 ln -sf ~/.dotfiles/zsh/.zshrc ~/.zshrc
 ln -sf ~/.dotfiles/vim/.vimrc ~/.vimrc
 
@@ -19,6 +17,6 @@ done
 # make sure all plugins pulled in from .gitmodules are present
 git submodule update --init
 
-# delete/copy zsh plugins to $ZSH/custom/plugins
+# delete and rsync custom zsh plugins to $ZSH/custom/plugins
 rm -rf "$ZSH"/custom/plugins/*
 rsync -a zsh/plugins/ "$ZSH"/custom/plugins
