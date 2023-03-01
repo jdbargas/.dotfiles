@@ -13,7 +13,7 @@ ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
 # force link *.zsh files to $ZSH/custom to be loaded by oh-my-zsh
 for f in zsh/*.zsh
 do
-  ln -sf ~/.dotfiles/"$f" "$ZSH"/custom/"$f"
+  ln -sf ~/.dotfiles/"$f" "$ZSH"/custom/"$(basename ${f})"
 done
 
 # make sure all plugins pulled in from .gitmodules are present
