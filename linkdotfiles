@@ -10,8 +10,8 @@ mv ~/.vimrc ~/.vimrc.bak
 ln -s ~/.dotfiles/.zshrc ~/.zshrc
 ln -s ~/.dotfiles/.vimrc ~/.vimrc
 
-# force link *.zsh files to $ZSH/custom to be loaded by oh-my-zsh
+# force link *.zsh files to $ZSH_CUSTOM to be loaded by oh-my-zsh
 for f in *.zsh
 do
-  ln -sf ~/.dotfiles/"$f" "$ZSH"/custom/"$f"
+  ln -sf ~/.dotfiles/"$f" "$ZSH_CUSTOM"/$f"
 done
