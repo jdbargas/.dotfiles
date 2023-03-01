@@ -13,5 +13,8 @@ ln -s ~/.dotfiles/.vimrc ~/.vimrc
 # force link *.zsh files to $ZSH_CUSTOM to be loaded by oh-my-zsh
 for f in *.zsh
 do
-  ln -sf ~/.dotfiles/"$f" "$ZSH_CUSTOM"/$f"
+  ln -sf ~/.dotfiles/"$f" "$ZSH_CUSTOM"/"$f"
 done
+
+# move zsh plugins to $ZSH_CUSTOM/plugins
+mv zsh_plugins/* "$ZSH_CUSTOM"/plugins/
