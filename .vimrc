@@ -37,6 +37,10 @@ let c_comment_strings=1 " highlight strings inside C comments
 " Disable mouse
 set mouse=
 
+" Turn off beeping and flashing
+set visualbell
+set t_vb=
+
 " Allow backspacing in insert mode
 set backspace=indent,eol,start
 

@@ -16,5 +16,9 @@ do
   ln -sf ~/.dotfiles/"$f" "$ZSH"/custom/"$f"
 done
 
-# move zsh plugins to $ZSH/custom/plugins
-mv zsh_plugins/* "$ZSH"/custom/plugins/
+# make sure all plugins pulled in from .gitmodules are present
+git submodule update --init
+
+# delete/copy zsh plugins to $ZSH/custom/plugins
+rm -rf "$ZSH"/custom/plugins/*
+rsync -a zsh_plugins/ "$ZSH"/custom/plugins
