@@ -7,11 +7,11 @@ mv ~/.zshrc ~/.zshrc.bak
 mv ~/.vimrc ~/.vimrc.bak
 
 # link dotfiles
-ln -s ~/.dotfiles/.zshrc ~/.zshrc
-ln -s ~/.dotfiles/.vimrc ~/.vimrc
+ln -s ~/.dotfiles/zsh/.zshrc ~/.zshrc
+ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
 
 # force link *.zsh files to $ZSH/custom to be loaded by oh-my-zsh
-for f in *.zsh
+for f in zsh/*.zsh
 do
   ln -sf ~/.dotfiles/"$f" "$ZSH"/custom/"$f"
 done
@@ -21,4 +21,4 @@ git submodule update --init
 
 # delete/copy zsh plugins to $ZSH/custom/plugins
 rm -rf "$ZSH"/custom/plugins/*
-rsync -a zsh_plugins/ "$ZSH"/custom/plugins
+rsync -a zsh/plugins/ "$ZSH"/custom/plugins
