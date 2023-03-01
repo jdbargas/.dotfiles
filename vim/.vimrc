@@ -62,8 +62,9 @@ set ttimeoutlen=100 " wait up to 100ms after Esc for any special keys
 " Show a few lines of context around the cursor
 set scrolloff=5
 
-" Don't word wrap
+" Don't word wrap on open, or on long lines when typing
 set nowrap
+set formatoptions-=t
 
 " Show hybrid line numbers (relative except for cursor line)
 set number
@@ -141,6 +142,11 @@ colorscheme molokai
 " override some highlight definitions
 hi TabLineSel guibg=#808080 guifg=#FFFFFF gui=bold
 
+" highlights for statusline
+hi NormalModeSL         guibg=lightgreen  guifg=#444444   cterm=bold
+hi InsertReplaceModeSL  guibg=red         guifg=#eeeeee   cterm=bold
+hi CommandModeSL        guibg=yellow      guifg=#444444   cterm=bold
+
 """""""""""
 """ MAP
 """""""""""
@@ -170,8 +176,8 @@ function! StatuslineActive()
   let l:mod = '%m'
   " `w:` is variable to current window
   " `l:` is variable to function. For more info :help E121
-  let w:mode = '%{StatuslineMode()}'
-  return w:mode.l:filename.l:mod
+  let w:mode = StatuslineMode()
+  return w:mode.'%* '.l:filename.l:mod
 endfunction
 
 " component for inactive window
@@ -192,27 +198,38 @@ function! StatuslineLoad(mode)
 endfunction
 
 function! StatuslineMode() abort
-
   let l:currentmode={
-        \ 'n':  'NORMAL',
-        \ 'v':  'VISUAL',
-        \ 'V':  'V-LINE',
-        \ '^V': 'V-RECT',
-        \ 's':  'SELECT',
-        \ 'S':  'S-LINE',
-        \ '^S': 'S-RECT',
-        \ 'i':  'INSERT',
-        \ 'R':  'REPLACE',
-        \ 'c':  'C-MODE',
-        \ 't':  'TERM'}
+        \ 'n':  ' NORMAL ',
+        \ 'v':  ' VISUAL ',
+        \ 'V':  ' V-LINE ',
+        \ '^V': ' V-RECT ',
+        \ 's':  ' SELECT ',
+        \ 'S':  ' S-LINE ',
+        \ '^S': ' S-RECT ',
+        \ 'i':  ' INSERT ',
+        \ 'R':  ' REPLACE ',
+        \ 'c':  ' COMMAND ',
+        \ 't':  ' TERM '}
 
   let l:modecurrent = mode()
   " use get() -> fails safely, since ^V doesn't seem to register
   " 3rd arg is used when return of mode() == 0, which is case with ^V
   " thus, ^V fails -> returns 0 -> replaced with 'VB'
   let l:modelist = toupper(get(l:currentmode, l:modecurrent, 'VB'))
-  let l:current_status_mode = l:modelist
-  return l:current_status_mode
+  let l:current_status = l:modelist
+
+  " check mode type and assign color and reset color after
+  if l:current_status ==# ' NORMAL '
+    let l:mode_color = '%#NormalModeSL#' 
+  elseif l:current_status ==# ' INSERT ' || l:current_status == ' REPLACE '
+    let l:mode_color = '%#InsertReplaceModeSL#'
+  elseif l:current_status ==# ' COMMAND '
+    let l:mode_color = '%#CommandModeSL#'
+  else
+    let l:mode_color = '%*'
+  endif
+
+  return l:mode_color.l:current_status.'%*'
 endfunction
 
 " so that autocmd didn't stack up and slow down vim
