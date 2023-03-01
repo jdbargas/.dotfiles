@@ -61,8 +61,9 @@ set relativenumber
 " Highlight cursor line
 set cursorline
 
-" Highlight 81st column to try and keep from goign to wide in a screen
+" Highlight 81st column to maintain < 80 char lines
 set colorcolumn=81
+
 " Tab and indent settings
 set autoindent
 set tabstop=2 " number of spaces a tab in the file counts for
