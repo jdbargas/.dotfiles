@@ -1,8 +1,7 @@
 #!/bin/sh
 
-# create backups before linking
-cp -L ~/.zshrc ~/.zshrc.bak
-cp -L ~/.vimrc ~/.vimrc.bak
+# THIS WILL OVERWRITE ~/.zshrc, ~/.vimrc
+
 
 # force link dotfiles
 ln -sf ~/.dotfiles/zsh/.zshrc ~/.zshrc
