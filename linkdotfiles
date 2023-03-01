@@ -7,8 +7,8 @@ cp -L ~/.zshrc ~/.zshrc.bak
 cp -L ~/.vimrc ~/.vimrc.bak
 
 # link dotfiles
-ln -s ~/.dotfiles/zsh/.zshrc ~/.zshrc
-ln -s ~/.dotfiles/vim/.vimrc ~/.vimrc
+ln -sf ~/.dotfiles/zsh/.zshrc ~/.zshrc
+ln -sf ~/.dotfiles/vim/.vimrc ~/.vimrc
 
 # force link *.zsh files to $ZSH/custom to be loaded by oh-my-zsh
 for f in zsh/*.zsh
