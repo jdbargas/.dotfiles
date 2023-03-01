@@ -11,6 +11,7 @@
 "     -> COLOR
 "     -> GENERAL
 "     -> MAP
+"     -> STATUSLINE
 "     -> MISC
 
 """""""""""""""""""
@@ -105,9 +106,6 @@ set listchars=nbsp:%,tab:▸\ ,trail:_,eol:¬,precedes:←,extends:→
 " Don't increment in octal notation
 set nrformats-=octal
 
-" Show statusline
-set laststatus=2
-
 " Enable file type detection
 filetype plugin indent on
 
@@ -156,6 +154,75 @@ nnoremap o o<Esc>
 
 " clear search highlights
 noremap <leader><leader> :nohlsearch<cr>
+
+""""""""""""""""""""
+""" STATUSLINE
+""""""""""""""""""""
+
+" NOTE: highlight overrides in COLOR section above
+" 
+" Show statusline
+set laststatus=2
+
+" component for active window
+function! StatuslineActive()
+  let l:filename = '%f'
+  let l:mod = '%m'
+  " `w:` is variable to current window
+  " `l:` is variable to function. For more info :help E121
+  let w:mode = '%{StatuslineMode()}'
+  return w:mode.l:filename.l:mod
+endfunction
+
+" component for inactive window
+function! StatuslineInactive()
+  " the component goes here
+endfunction
+
+" load statusline using `autocmd` event with this function
+function! StatuslineLoad(mode)
+  if a:mode ==# 'active'
+    " to make it simple, %! is to evaluate the current changes in the window
+    " it can be useful to evaluate current mode in statusline. For more info:
+    " :help statusline.
+    setlocal statusline=%!StatuslineActive()
+  else
+    setlocal statusline=%!StatuslineInactive()
+  endif
+endfunction
+
+function! StatuslineMode() abort
+
+  let l:currentmode={
+        \ 'n':  'NORMAL',
+        \ 'v':  'VISUAL',
+        \ 'V':  'V-LINE',
+        \ '^V': 'V-RECT',
+        \ 's':  'SELECT',
+        \ 'S':  'S-LINE',
+        \ '^S': 'S-RECT',
+        \ 'i':  'INSERT',
+        \ 'R':  'REPLACE',
+        \ 'c':  'C-MODE',
+        \ 't':  'TERM'}
+
+  let l:modecurrent = mode()
+  " use get() -> fails safely, since ^V doesn't seem to register
+  " 3rd arg is used when return of mode() == 0, which is case with ^V
+  " thus, ^V fails -> returns 0 -> replaced with 'VB'
+  let l:modelist = toupper(get(l:currentmode, l:modecurrent, 'VB'))
+  let l:current_status_mode = l:modelist
+  return l:current_status_mode
+endfunction
+
+" so that autocmd didn't stack up and slow down vim
+augroup statusline_startup
+  autocmd!
+  " for more info :help WinEnter and :help BufWinEnter
+  autocmd WinEnter,BufWinEnter * call StatuslineLoad('active')
+  autocmd WinLeave * call StatuslineLoad('inactive')
+augroup END
+
 
 """"""""""""""""""""
 """ MISC
