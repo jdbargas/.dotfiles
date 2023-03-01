@@ -92,9 +92,6 @@ set lazyredraw
 set list
 set listchars=nbsp:%,tab:▸\ ,trail:_,eol:¬,precedes:←,extends:→
 
-" Keep n lines off the edges of the screen when scrolling
-set scrolloff=5
-
 " Don't increment in octal notation
 set nrformats-=octal
 
