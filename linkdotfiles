@@ -3,8 +3,8 @@
 # symbolic link dotfiles ASSUMING dotfiles reside at ~/.dotfiles
 
 # create backups before linking
-mv ~/.zshrc ~/.zshrc.bak
-mv ~/.vimrc ~/.vimrc.bak
+cp -L ~/.zshrc ~/.zshrc.bak
+cp -L ~/.vimrc ~/.vimrc.bak
 
 # link dotfiles
 ln -s ~/.dotfiles/zsh/.zshrc ~/.zshrc
