@@ -8,7 +8,7 @@
 if [ $# -eq 0 ]
 then
   echo "***************************************"
-  echo "**** THIS IS A DISTRUCTIVE COMMAND ****"
+  echo "**** THIS IS A DESTRUCTIVE COMMAND ****"
   echo "***************************************\n"
   echo "!!! if any of these files/folders exist, they will be overwritten !!!\n"
   echo "to be overwritten in ~/"
