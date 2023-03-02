@@ -181,6 +181,7 @@ hi TabLineSel guibg=#808080 guifg=#FFFFFF gui=bold
 hi NormalModeSL         guibg=lightgreen  guifg=#444444   cterm=bold
 hi InsertReplaceModeSL  guibg=red         guifg=#eeeeee   cterm=bold
 hi CommandModeSL        guibg=yellow      guifg=#444444   cterm=bold
+hi VisualModeSL         guibg=darkgreen   guifg=#444444   cterm=bold
 hi ModifiedFileSL       guibg=red         guifg=yellow    cterm=bold
 hi FiletypeSL           guibg=#455354     guifg=#66D9EF   cterm=bold
 
@@ -242,16 +243,18 @@ function! StatuslineMode() abort
   " use get() -> fails safely, since ^V doesn't seem to register
   " 3rd arg is used when return of mode() == 0, which is case with ^V
   " thus, ^V fails -> returns 0 -> replaced with 'VB'
-  let l:modelist = toupper(get(l:currentmode, l:modecurrent, 'VB'))
+  let l:modelist = toupper(get(l:currentmode, l:modecurrent, ' V-RECT '))
   let l:current_status = l:modelist
 
   " check mode type, assign color, reset color
-  if l:current_status ==# ' NORMAL '
+  if l:modecurrent ==# 'n'
     let l:mode_color = '%#NormalModeSL#' 
-  elseif l:current_status ==# ' INSERT ' || l:current_status == ' REPLACE '
+  elseif l:modecurrent ==# 'i' || l:modecurrent == 'R'
     let l:mode_color = '%#InsertReplaceModeSL#'
-  elseif l:current_status ==# ' COMMAND '
+  elseif l:modecurrent ==# 'c'
     let l:mode_color = '%#CommandModeSL#'
+  elseif l:modecurrent == 'v' || l:current_status == ' V-RECT '
+    let l:mode_color = '%#VisualModeSL#'
   else
     let l:mode_color = '%*'
   endif
