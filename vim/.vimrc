@@ -43,6 +43,15 @@ let c_comment_strings=1
 " Disable mouse
 set mouse=
 
+" Don't use swap or backup files
+set noswapfile
+set nobackup
+set nowritebackup
+
+" Automatically save before :next etc, reread changed files without asking
+set autowrite
+set autoread
+
 " Open splits to the right, or below
 set splitright
 set splitbelow
@@ -50,12 +59,19 @@ set splitbelow
 " Turn off beeping and flashing
 set visualbell
 set t_vb=
+set noerrorbells
 
 " Allow backspacing in insert mode
 set backspace=indent,eol,start
 
-" Keep 2000 entries in history
-set history=2000
+" Set UTF-8 enconding
+set encoding=utf-8
+
+" Prefer unix, windows, macos formats
+set fileformats=unix,dos,mac
+
+" Keep 200 entries in undo history
+set history=200
 
 " Show cursor position, display commands, display matches in statusline
 set ruler
