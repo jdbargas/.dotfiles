@@ -1,21 +1,60 @@
 #!/bin/sh
 
-# THIS WILL OVERWRITE ~/.zshrc, ~/.vimrc
+# links up dotfiles, custom zsh files, and custom zsh plugins
 
+# test if arguments were passed
+# display message about what will be overwritten if run with 'force'
 
-# force link dotfiles
-ln -sf ~/.dotfiles/zsh/.zshrc ~/.zshrc
-ln -sf ~/.dotfiles/vim/.vimrc ~/.vimrc
+if [ $# -eq 0 ]
+then
+  echo "***************************************"
+  echo "**** THIS IS A DISTRUCTIVE COMMAND ****"
+  echo "***************************************\n"
+  echo "!!! if any of these files/folders exist, they will be overwritten !!!\n"
+  echo "to be overwritten in ~/"
+  echo "~/.zshrc"
+  echo "~/.vimrc"
+  echo ""
+  echo "to be overwritten in "$ZSH"/custom/"
+  (cd zsh && ls -1 *.zsh)
+  echo ""
+  echo "to be overwritten in "$ZSH"/custom/plugins/"
+  (cd zsh/plugins && ls -d1 */)
+  echo ""
+  echo "if you wish to proceed, rerun with 'force' argument"
+  exit 1
+fi
 
-# force link *.zsh files to $ZSH/custom to be loaded by oh-my-zsh
-for f in zsh/*.zsh
-do
-  ln -sf ~/.dotfiles/"$f" "$ZSH"/custom/"$(basename ${f})"
-done
+# get args now that we know something is there
+FORCE_FLAG=$1
 
-# make sure all plugins pulled in from .gitmodules are present
-git submodule update --init
+if [ "$FORCE_FLAG" == "force" ]
+then
+  # force link dotfiles
+  echo "linking ~/.zshrc"
+  echo "linking ~/.vimrc"
+  echo ""
+  ln -sf ~/.dotfiles/zsh/.zshrc ~/.zshrc
+  ln -sf ~/.dotfiles/vim/.vimrc ~/.vimrc
 
-# delete and rsync custom zsh plugins to $ZSH/custom/plugins
-rm -rf "$ZSH"/custom/plugins/*
-rsync -a zsh/plugins/ "$ZSH"/custom/plugins
+  # force link *.zsh files to $ZSH/custom to be loaded by oh-my-zsh
+  for f in zsh/*.zsh
+  do
+    echo "linking "$ZSH"/custom/"$(basename ${f})""
+    ln -sf ~/.dotfiles/"$f" "$ZSH"/custom/"$(basename ${f})"
+  done
+  echo ""
+
+  # make sure all plugins pulled in from .gitmodules are present
+  git submodule update --init
+
+  # delete and rsync custom zsh plugins to $ZSH/custom/plugins
+  rm -rf "$ZSH"/custom/plugins/*
+  echo "zsh plugins:\n"
+  (cd zsh/plugins && ls -d1 */)
+  rsync -a zsh/plugins/ "$ZSH"/custom/plugins
+  echo "\nmoved to "$ZSH"/custom/plugins/"
+else
+  # if something other than 'force' is passed, display friendly error message
+  echo "argument '"$1"' is not recognized. exiting."
+fi
