@@ -21,6 +21,11 @@
 " Set leader key
 let mapleader = ","
 
+" Leader maps defined here, all other maps defined in section below
+
+" clear search highlights
+noremap <leader><leader> :nohlsearch<cr>
+
 """"""""""""""""""""
 """ GENERAL
 """"""""""""""""""""
@@ -31,9 +36,9 @@ set nocompatible
 " Turn on for correct colors in terminal
 set termguicolors
 
-" Turn on syntax highlighting
+" Turn on syntax highlighting, highlight strings in C comments
 syntax enable
-let c_comment_strings=1 " highlight strings inside C comments
+let c_comment_strings=1
 
 " Disable mouse
 set mouse=
@@ -49,20 +54,24 @@ set t_vb=
 " Allow backspacing in insert mode
 set backspace=indent,eol,start
 
-set history=2000 " keep 2000 lines of of cli history
-set ruler "show the cursor position at all times
-set showcmd " display incomplete commands
-set wildmenu " display completion matches in status line
+" Keep 2000 entries in history
+set history=2000
 
-set ttimeout " time out for key codes
-set ttimeoutlen=100 " wait up to 100ms after Esc for any special keys
+" Show cursor position, display commands, display matches in statusline
+set ruler
+set showcmd
+set wildmenu
+
+" Timeout for key codes and wait up to 100ms 
+set ttimeout
+set ttimeoutlen=100
 
 " Show a few lines of context around the cursor
 set scrolloff=5
 
-" Don't word wrap on open, or on long lines when typing
+" Don't word wrap on open; don't wrap at window.
 set nowrap
-set formatoptions-=t
+set textwidth=0
 
 " Show hybrid line numbers (relative except for cursor line)
 set number
@@ -76,10 +85,10 @@ set colorcolumn=81
 
 " Tab and indent settings
 set autoindent
-set tabstop=2 " number of spaces a tab in the file counts for
-set softtabstop=2 " number of spaces a tab uses while editing
-set shiftwidth=2 " number of spaces << or >> will use
-set expandtab " insert spaces instead of tabs
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
 
 " Use /g flag on :s substitutions by default
 set gdefault
@@ -145,9 +154,6 @@ noremap <Right> <Nop>
 
 " exit insert mode after opening new line below cursor
 nnoremap o o<Esc>
-
-" clear search highlights
-noremap <leader><leader> :nohlsearch<cr>
 
 " center search on screen when using n/N to cycle search results
 noremap n nzz
@@ -260,15 +266,12 @@ augroup statusline_startup
   autocmd WinLeave * call StatuslineLoad('inactive')
 augroup END
 
-
 """"""""""""""""""""
 """ MISC
 """"""""""""""""""""
 
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-" Revert with: ":delcommand DiffOrig".
+" Command kept from original .vimrc
+" See the diff between the current buffer and the file it was loaded from
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
         \ | wincmd p | diffthis
