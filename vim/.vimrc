@@ -178,10 +178,10 @@ colorscheme molokai
 hi TabLineSel guibg=#808080 guifg=#FFFFFF gui=bold
 
 " highlights for statusline
-hi NormalModeSL         guibg=lightgreen  guifg=#444444   cterm=bold
-hi InsertReplaceModeSL  guibg=red         guifg=#eeeeee   cterm=bold
+hi NormalModeSL         guibg=#808080     guifg=#292929   cterm=bold
+hi InsertReplaceModeSL  guibg=red         guifg=#EEEEEE   cterm=bold
 hi CommandModeSL        guibg=yellow      guifg=#444444   cterm=bold
-hi VisualModeSL         guibg=darkgreen   guifg=#444444   cterm=bold
+hi VisualModeSL         guibg=lightgreen  guifg=#444444   cterm=bold
 hi ModifiedFileSL       guibg=red         guifg=yellow    cterm=bold
 hi FiletypeSL           guibg=#455354     guifg=#66D9EF   cterm=bold
 
