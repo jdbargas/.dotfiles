@@ -180,11 +180,10 @@ function! StatuslineActive()
   " `l:` is variable to function. For more info :help E121
   let w:mode = StatuslineMode()
   let l:path = '%f'
-  let l:lc = '%4l,%3c'
+  let l:lcp = '%l:%2c %3p%%'
   let l:type = '%#FiletypeSL#%12y%*'
   let l:sep = '%='
-  let l:sp = ' '
-  return w:mode.l:sp.l:filename.l:sp.l:sep.l:mod.l:sp.l:path.l:sp.l:lc.l:sp.l:type
+  return w:mode.' '.l:filename.' '.l:mod.l:sep.l:type.' '.l:path.' @ '.l:lcp
 endfunction
 
 " component for inactive window
