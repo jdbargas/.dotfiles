@@ -14,7 +14,7 @@
 "     -> STATUSLINE
 "     -> MISC
 
-"""""""""""""""""""
+""""""""""""""""""""
 """ LEADER
 """"""""""""""""""""
 
@@ -38,11 +38,9 @@ let c_comment_strings=1 " highlight strings inside C comments
 " Disable mouse
 set mouse=
 
-" Disable arrow keys
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+" Open splits to the right, or below
+set splitright
+set splitbelow
 
 " Turn off beeping and flashing
 set visualbell
@@ -131,19 +129,36 @@ Plug 'tomasr/molokai'
 
 call plug#end()
 
-"""""""""""
+""""""""""""""""""""
 """ MAP
-"""""""""""
-"
+""""""""""""""""""""
+
 " noremap  -> map normal and visual
 " nnoremap -> map normal
 " inoremap -> map insert
+
+" Disable arrow keys
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
 
 " exit insert mode after opening new line below cursor
 nnoremap o o<Esc>
 
 " clear search highlights
 noremap <leader><leader> :nohlsearch<cr>
+
+" center search on screen when using n/N to cycle search results
+noremap n nzz
+noremap N Nzz
+
+" use jk/kj as an alternate to <Esc> to avoid having to reach
+inoremap jk <Esc>
+inoremap kj <Esc>
+
+" temp to get used to jk/kj instead of <Esc> 
+inoremap <Esc> <Nop>
 
 """"""""""""""""""""
 """ COLOR
