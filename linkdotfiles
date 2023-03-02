@@ -1,12 +1,13 @@
 #!/bin/sh
-
+#
+# Maintainer: jdbargas
+#
 # links up dotfiles, custom zsh files, and custom zsh plugins
 
 # test if arguments were passed
-# display message about what will be overwritten if run with 'force'
-
 if [ $# -eq 0 ]
 then
+  # display message about what will be overwritten if run with 'force'
   echo "***************************************"
   echo "**** THIS IS A DESTRUCTIVE COMMAND ****"
   echo "***************************************\n"
