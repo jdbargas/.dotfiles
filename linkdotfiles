@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 #
 # Maintainer: jdbargas
 #
@@ -29,7 +29,7 @@ fi
 # get args now that we know something is there
 FORCE_FLAG=$1
 
-if [ "$FORCE_FLAG" == "force" ]
+if [ "$FORCE_FLAG" = "force" ]
 then
   # force link dotfiles
   echo "linking ~/.zshrc"
