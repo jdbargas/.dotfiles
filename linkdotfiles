@@ -59,7 +59,7 @@ then
   echo ""
 
   # force link themes directory
-  ln -sf ~/.dotfiles/zsh/themes "$ZSH"/custom/themes 
+  ln -sf ~/.dotfiles/zsh/themes/ "$ZSH"/custom/themes 
   echo "zsh themes:\n"
   (cd zsh/themes && ls -1)
   echo ""
