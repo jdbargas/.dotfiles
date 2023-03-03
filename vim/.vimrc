@@ -78,6 +78,9 @@ set ruler
 set showcmd
 set wildmenu
 
+" Don't show mode because it's redundant with current statusline
+set noshowmode
+
 " Timeout for key codes and wait up to 100ms 
 set ttimeout
 set ttimeoutlen=100
