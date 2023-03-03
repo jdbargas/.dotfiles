@@ -15,4 +15,4 @@ custom `.zshrc` and `.vimrc`
 `zsh` themes are maintained in zsh/themes and linked to `$ZSH/custom/themes/`
 
 run `./linkdotfiles` to view affected files/folders  
-run `./linkdotfiles force` to link and/or move files 
+run `./linkdotfiles force` to link files/folders
