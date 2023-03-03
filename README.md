@@ -9,8 +9,10 @@ custom `.zshrc` and `.vimrc`
 
 `vim` plugins handled by [vim-plug](https://github.com/junegunn/vim-plug) and listed in PLUGINS section of `.vimrc`
 
-`zsh` plugins are maintained as git submodules and moved to
+`zsh` plugins are maintained as git submodules and linked to
 `$ZSH/custom/plugins/`
+
+`zsh` themes are maintained in zsh/themes and linked to `$ZSH/custom/themes/`
 
 run `./linkdotfiles` to view affected files/folders  
 run `./linkdotfiles force` to link and/or move files 
