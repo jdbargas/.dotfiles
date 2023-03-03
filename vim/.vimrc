@@ -218,13 +218,12 @@ function! StatuslineActive()
   let l:filename = '» %t «'
   let l:mod = '%#ModifiedFileSL#%m%*'
   " `w:` is variable to current window
-  " `l:` is variable to function. For more info :help E121
+  " `l:` is variable to function.
   let w:mode = StatuslineMode()
-  let l:path = '%f'
   let l:lcp = '%l:%2c %3p%%'
   let l:type = '%#FiletypeSL#%12y%*'
   let l:sep = '%='
-  return w:mode.' '.l:filename.' '.l:mod.l:sep.l:type.' '.l:path.' @ '.l:lcp
+  return w:mode.' '.l:filename.' '.l:mod.l:sep.l:type.' '.l:lcp
 endfunction
 
 " component for inactive window

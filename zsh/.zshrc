@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="apple"
+ZSH_THEME="simple_git"
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"

@@ -20,7 +20,10 @@ then
   (cd zsh && ls -1 *.zsh)
   echo ""
   echo "to be overwritten in "$ZSH"/custom/plugins/"
-  (cd zsh/plugins && ls -d1 */)
+  (cd "$ZSH"/custom/plugins/ && ls -d1 */)
+  echo ""
+  echo "to be overwritten in "$ZSH"/custom/themes/"
+  (cd "$ZSH"/custom/themes/ && ls -1)
   echo ""
   echo "if you wish to proceed, rerun with 'force' argument"
   exit 1
@@ -49,12 +52,18 @@ then
   # make sure all plugins pulled in from .gitmodules are present
   git submodule update --init
 
-  # delete and rsync custom zsh plugins to $ZSH/custom/plugins
-  rm -rf "$ZSH"/custom/plugins/*
+  # force link plugins directory
+  ln -sf ~/.dotfiles/zsh/plugins/ "$ZSH"/custom/plugins
   echo "zsh plugins:\n"
   (cd zsh/plugins && ls -d1 */)
-  rsync -a zsh/plugins/ "$ZSH"/custom/plugins
-  echo "\nmoved to "$ZSH"/custom/plugins/"
+  echo ""
+
+  # force link themes directory
+  ln -sf ~/.dotfiles/zsh/themes "$ZSH"/custom/themes 
+  echo "zsh themes:\n"
+  (cd zsh/themes && ls -1)
+  echo ""
+  echo "finished linking. run 'omz reload' for settings to take effect."
 else
   # if something other than 'force' is passed, display friendly error message
   echo "argument '"$1"' is not recognized. exiting."
