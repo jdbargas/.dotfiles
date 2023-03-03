@@ -20,10 +20,10 @@ then
   (cd zsh && ls -1 *.zsh)
   echo ""
   echo "to be overwritten in "$ZSH"/custom/plugins/"
-  (cd "$ZSH"/custom/plugins/ && ls -d1 */)
+  (cd zsh/plugins/ && ls -d1 */)
   echo ""
   echo "to be overwritten in "$ZSH"/custom/themes/"
-  (cd "$ZSH"/custom/themes/ && ls -1)
+  (cd zsh/themes/ && ls -1)
   echo ""
   echo "if you wish to proceed, rerun with 'force' argument"
   exit 1
@@ -44,7 +44,7 @@ then
   # force link *.zsh files to $ZSH/custom to be loaded by oh-my-zsh
   for f in zsh/*.zsh
   do
-    echo "linking "$ZSH"/custom/"$(basename ${f})""
+    echo "linking "$ZSH"/custom/"$(basename ${f})
     ln -sf ~/.dotfiles/"$f" "$ZSH"/custom/"$(basename ${f})"
   done
   echo ""
@@ -52,17 +52,24 @@ then
   # make sure all plugins pulled in from .gitmodules are present
   git submodule update --init
 
-  # force link plugins directory
-  ln -sf ~/.dotfiles/zsh/plugins/ "$ZSH"/custom
-  echo "zsh plugins:\n"
-  (cd zsh/plugins && ls -d1 */)
+  # remove existing plugin folders and link plugins directories
+  for d in zsh/plugins/*
+  do
+    # remove directory first
+    rm -rf "$ZSH"/custom/plugins/$(basename ${d})
+    echo "linking "$ZSH"/custom/plugins/"$(basename ${d})
+    ln -s ~/.dotfiles/"$d" "$ZSH"/custom/plugins/
+  done
   echo ""
 
   # force link themes directory
-  ln -sf ~/.dotfiles/zsh/themes/ "$ZSH"/custom 
-  echo "zsh themes:\n"
-  (cd zsh/themes && ls -1)
+  for f in zsh/themes/*
+  do
+    echo "linking "$ZSH"/custom/themes/"$(basename ${f})
+    ln -sf ~/.dotfiles/"$f" "$ZSH"/custom/themes/$(basename ${f})
+  done
   echo ""
+
   echo "finished linking. run 'omz reload' for settings to take effect."
 else
   # if something other than 'force' is passed, display friendly error message
