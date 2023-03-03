@@ -53,13 +53,13 @@ then
   git submodule update --init
 
   # force link plugins directory
-  ln -sf ~/.dotfiles/zsh/plugins/ "$ZSH"/custom/plugins
+  ln -sf ~/.dotfiles/zsh/plugins/ "$ZSH"/custom
   echo "zsh plugins:\n"
   (cd zsh/plugins && ls -d1 */)
   echo ""
 
   # force link themes directory
-  ln -sf ~/.dotfiles/zsh/themes/ "$ZSH"/custom/themes 
+  ln -sf ~/.dotfiles/zsh/themes/ "$ZSH"/custom 
   echo "zsh themes:\n"
   (cd zsh/themes && ls -1)
   echo ""
