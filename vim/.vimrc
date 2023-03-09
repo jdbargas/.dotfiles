@@ -155,6 +155,8 @@ call plug#begin()
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'tomasr/molokai'
 
+" Tools
+Plug 'dbarsam/vim-rainbow-parentheses'
 call plug#end()
 
 """"""""""""""""""""
